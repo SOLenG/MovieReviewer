@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.json.JsonArray;
+import java.util.ArrayList;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -14,7 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @RestController
 @RequestMapping("/person")
-public class PersonController {
+public class PersonController extends BaseController {
 
     private PersonService personService;
 
@@ -33,5 +36,11 @@ public class PersonController {
     @RequestMapping(value = "/search", method = GET)
     public Person retrieve(@RequestParam("id") String idPerson) {
         return personService.getPerson(Long.parseLong(idPerson));
+    }
+
+    private ArrayList<Person> parsePersonListFromAPI(JsonArray listMovieFromApi) {
+        ArrayList<Person> listPerson = new ArrayList();
+
+        return (listPerson);
     }
 }
