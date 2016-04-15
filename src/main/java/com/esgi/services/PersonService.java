@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class PersonService {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
     public PersonService(PersonRepository personRepository) {
@@ -27,7 +27,7 @@ public class PersonService {
     }
 
     @Transactional
-    public List<Person> getAllPerson() {
+    public List<Person> getAllPersons() {
         return(personRepository.findAll());
     }
 }

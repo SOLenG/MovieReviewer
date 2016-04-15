@@ -3,12 +3,14 @@ package com.esgi.controllers;
 import com.esgi.model.Person;
 import com.esgi.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.json.JsonArray;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -19,28 +21,24 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/person")
 public class PersonController extends BaseController {
 
-    private PersonService personService;
-
     /**
      * @param personService PersonService
      */
     @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
+    private PersonService personService;
+
+    @RequestMapping(method = GET)
+    public List<Person> all() {
+        return personService.getAllPersons();
     }
 
     /**
-     * @param idPerson String
+     * @param namePerson String
      * @return Person
      */
-    @RequestMapping(value = "/search", method = GET)
-    public Person retrieve(@RequestParam("id") String idPerson) {
-        return personService.getPerson(Long.parseLong(idPerson));
+    @RequestMapping(value = "/{namePerson:[A-z]*}", method = GET)
+    public Person retrieveByName(@PathVariable("namePerson") String namePerson) {
+        return personService.getPerson(Long.parseLong(namePerson));
     }
 
-    private ArrayList<Person> parsePersonListFromAPI(JsonArray listMovieFromApi) {
-        ArrayList<Person> listPerson = new ArrayList();
-
-        return (listPerson);
-    }
 }

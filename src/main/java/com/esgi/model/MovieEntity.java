@@ -1,14 +1,11 @@
 package com.esgi.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.sql.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 
 /**
  * Created by Arnaud Flaesch on 09/04/2016.
@@ -23,6 +20,8 @@ public class MovieEntity {
     private Date dateRelease;
     private int codeAllocine;
     private float noteAllocine;
+
+    private Set<Person> persons = new HashSet<Person>();
 
     @Id
     @GeneratedValue
@@ -103,5 +102,19 @@ public class MovieEntity {
 
     public void setGenre(GenreEntity genre) {
         this.genre = genre;
+    }
+
+    //@NotEmpty
+    @ManyToMany( fetch=FetchType.LAZY , cascade = CascadeType.ALL )
+    @JoinTable(name="movie",
+            joinColumns = @JoinColumn(name="idmovie"),
+            inverseJoinColumns = @JoinColumn(name="idperson")
+    )
+    public Set<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
 }

@@ -28,7 +28,8 @@
         <div class="movie" th:each="movie : ${listMovies}">
             <span class="title_movie" th:text="${movie.title}"></span> <img th:src="${movie.imageUrl}"/>
             <br /><br />
-            <span>de </span><span class="realisator"></span>
+            <span>de </span><span class="realisator">
+            <p class="movie" th:each="person : ${movie.persons}" th:text="${person.name}"></p></span>
             <br /><br />
             <span>avec </span><span class="actors"></span>
             <br /><br />

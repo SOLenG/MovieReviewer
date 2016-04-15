@@ -1,11 +1,21 @@
 package com.esgi.model;
 
+import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class Entity Person
  */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "person", schema = "moviereviewer")
 public class Person {
@@ -14,81 +24,17 @@ public class Person {
     @GeneratedValue
     @Column(name = "idperson")
     private int id;
-
-    @Basic
-    @Column(name = "firstname")
     private String firstName;
-
-    @Basic
-    @Column(name = "name")
     private String name;
-
-    @Basic
-    @Column(name = "birthday")
     private Date birthday;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons")
+    private Set<MovieEntity> movies = new HashSet<MovieEntity>();
 
-    /*@OneToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER )
-    @JoinTable(name="casting",
-            joinColumns = @JoinColumn(name="idperson"),
-            inverseJoinColumns = @JoinColumn(name="idmovie")
-    )*/
-    @OneToMany(cascade=CascadeType.ALL)
-    private MovieEntity movie;
-
-    /**
-     * @return int
-     */
-    public int getId() {
-        return id;
+    public Set<MovieEntity> getMovies() {
+        return movies;
     }
 
-    /**
-     * @return string
-     */
-    public String getFirstname() {
-        return firstName;
-    }
-
-    /**
-     * @return string
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @return string
-     */
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * @param birthday Date
-     */
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    /**
-     * @param firstName String
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @param name String
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public MovieEntity getMovie() {
-        return movie;
+    public void setMovies(Set<MovieEntity> movies) {
+        this.movies = movies;
     }
 }
