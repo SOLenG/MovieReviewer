@@ -2,6 +2,7 @@ package com.esgi.model;
 
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.ui.Model;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -18,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "person", schema = "moviereviewer")
-public class Person {
+public class Person implements Model {
 
     @Id
     @GeneratedValue

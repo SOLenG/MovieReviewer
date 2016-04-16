@@ -1,6 +1,6 @@
 package com.esgi.controllers;
 
-import com.esgi.model.MovieUtils;
+import com.esgi.model.Utils.MovieUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
